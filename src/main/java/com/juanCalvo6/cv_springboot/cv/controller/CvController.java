@@ -1,6 +1,8 @@
 package com.juanCalvo6.cv_springboot.cv.controller;
 
+import com.juanCalvo6.cv_springboot.cv.model.Person;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cv")
 public class CvController {
 
-    @GetMapping("")
-    public String index(){
+    @GetMapping({"/index", ""})
+    public String index(Model model){
+        Person person = new Person("Juan", "Calvò", "Engeenier");
+        model.addAttribute("name", "Juan");
+        model.addAttribute("person", person);
         return "index";
     }
 
