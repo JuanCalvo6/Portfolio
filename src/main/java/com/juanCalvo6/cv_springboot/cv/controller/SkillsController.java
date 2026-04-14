@@ -51,6 +51,21 @@ public class SkillsController {
             return "skills";
     }
 
+    @GetMapping("/name/{name}")
+    public String showFilteredSkill(@PathVariable String name,  Model model){
+        List<Skill> skillsFilter = skills.stream()
+                .filter(skill -> skill.getName().equalsIgnoreCase(name)
+                ).toList();
+
+        if(skillsFilter.isEmpty()){
+            model.addAttribute("filterMessage", "No se encontraron resultados para: " + name);
+            return "forward:/skills";
+        }
+        model.addAttribute("skills", skillsFilter);
+        model.addAttribute("filterMessage", "Filtro: " + name);
+        return "skills";
+    }
+
     @GetMapping("/new")
     public String showForm(Model model){
         model.addAttribute("skill", new Skill());
